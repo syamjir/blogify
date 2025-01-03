@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layout/header.ejs') %>
+  <body>
+    <div class="main grid-col-2">
+      <div class="left u-color-white-shine u-padding-bottom">
+        <form
+          class="container"
+          action="/app/auth/signup"
+          method="POST"
+          enctype="x-www-form-urlencoded"
+        >
+          <div class="input-text__box">
+            <h2 class="input-text__box--heading u-text-medium">
+              Join Our Community!
+            </h2>
+            <p class="input-text__box--content">start your journey with us.</p>
+          </div>
+          <% if (validationErrors.name) { %>
+
+          <p class="error"><%= validationErrors.name %></p>
+          <% } %>
+          <div class="input__box">
+            <ion-icon name="person" class="input__box--icon"></ion-icon>
+            <input
+              type="text"
+              placeholder="Full name"
+              id="name"
+              name="name"
+              value="<%= tempUserData?.name %>"
+              class="input__box--text"
+            />
+          </div>
+          <% if (validationErrors.email) { %>
+
+          <p class="error"><%= validationErrors.email %></p>
+          <% } %>
+          <div class="input__box">
+            <ion-icon name="mail" class="input__box--icon"></ion-icon>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value="<%= tempUserData?.email %>"
+              placeholder="Email address"
+              class="input__box--email"
+            />
+          </div>
+          <% if (validationErrors.password) { %>
+
+          <p class="error"><%= validationErrors.password %></p>
+          <% } %>
+          <div class="input__box">
+            <ion-icon name="lock-closed" class="input__box--icon"></ion-icon>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value="<%= tempUserData?.password %>"
+              placeholder="Password"
+              class="input__box--password"
+            />
+          </div>
+
+          <button class="login__btn btn-main">Signup</button>
+          <p class="login__promt">
+            Already have an account?
+            <a href="/app/auth/login" class="forgot__password login__link"
+              >Sign In</a
+            >
+          </p>
+        </form>
+      </div>
+      <div class="right u-primary-gradient u-box-width-medium">
+        <div class="text__box text__box--modifier">
+          <h2 class="text__box--heading">Connect Through Words</h2>
+          <p class="text__box--content">
+            Join our community of storytellers, share your thoughts, and inspire
+            readers worldwide.
+          </p>
+        </div>
+      </div>
+    </div>
+    <%- include('layout/script.ejs') %>
+  </body>
+</html>
