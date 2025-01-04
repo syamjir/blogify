@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layout/header.ejs') %>
+  <body>
+    <div class="main grid-col-2">
+      <div class="left u-primary-gradient">
+        <div class="text__box">
+          <h2 class="text__box--heading">Welcome to Our Blog</h2>
+          <p class="text__box--content">
+            Discover a world of knowledge, inspiration, and creativity through
+            our latest articles.
+          </p>
+        </div>
+      </div>
+      <form
+        action="/app/auth/login"
+        method="POST"
+        enctype="x-www-form-urlencoded"
+        class="right u-color-white-shine"
+      >
+        <div class="container">
+          <div class="input-text__box">
+            <h2 class="input-text__box--heading u-text-medium">Hello Again!</h2>
+            <p class="input-text__box--content">Welcome back</p>
+          </div>
+          <% if (loginError) { %>
+          <p class="error"><%= loginError %></p>
+          <% } %>
+          <div class="input__box">
+            <ion-icon name="mail" class="input__box--icon"></ion-icon>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value="<%= tempUserData.email %>"
+              placeholder="Email address"
+              class="input__box--email"
+            />
+          </div>
+          <div class="input__box">
+            <ion-icon name="lock-closed" class="input__box--icon"></ion-icon>
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              value="<%= tempUserData.password %>"
+              name="password"
+              class="input__box--email"
+            />
+          </div>
+          <button class="login__btn btn-main">Login</button>
+          <p class="login__promt">
+            Not a member?
+            <a href="/app/auth/signup" class="forgot__password login__link"
+              >Sign Up</a
+            >
+          </p>
+        </div>
+      </form>
+    </div>
+    <%- include('layout/script.ejs') %>
+  </body>
+</html>
