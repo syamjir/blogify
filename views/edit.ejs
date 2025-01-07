@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layout/header.ejs') %>
+  <link
+    href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
+    rel="stylesheet"
+  />
+  <body>
+    <div class="home__container">
+      <div class="section__navigation">
+        <div class="user">
+          <div class="user__image">
+            <img src="<%= userData.image %>" alt="user-photo" />
+          </div>
+          <p class="user__name u-color-grey"><%= userData.name %></p>
+        </div>
+        <ul class="nav__container">
+          <li><a href="/app">Home</a></li>
+          <li><a href="/app/account/<%= userData._id %>">Account</a></li>
+        </ul>
+      </div>
+
+      <div id="create-post-form " class="u-padding-main">
+        <div class="input-text__box u-modifier-box">
+          <h2 class="input-text__box--heading u-text-large">
+            Editing Your Blog Post for Re-Submission
+          </h2>
+          <p class="u-modify-title">
+            Steps to preview and submitted the updated post
+          </p>
+        </div>
+
+        <form
+          class="container"
+          action="/app/posts/<%= postData._id %>"
+          method="POST"
+          enctype="multipart/form-data"
+          id="post-form"
+        >
+          <div class="input__box">
+            <ion-icon name="pencil-outline" class="input__box--icon"></ion-icon>
+            <input
+              type="text"
+              placeholder="Title"
+              id="title"
+              name="title"
+              class="input__box--text"
+              value="<%= postData.title %>"
+            />
+          </div>
+
+          <div class="input__box">
+            <select
+              name="topic"
+              id="topic"
+              name="topic"
+              required
+              class="select"
+            >
+              <option value="" disabled selected>Select a topic</option>
+              <% if (postData.topic) { %>
+
+              <option selected value="<%= postData.topic %>">
+                <%= postData.topic %>
+              </option>
+              <% } %>
+              <option value="Tech">Tech</option>
+              <option value="Sports">Sports</option>
+              <option value="Health">Health</option>
+              <option value="Travlel">Travel</option>
+              <option value="LifeStyle">Lifestyle</option>
+              <option value="Food">Food</option>
+              <option value="Education">Education</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Science">Science</option>
+              <option value="Career">Career</option>
+              <option value="Finance">Finance</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+
+          <div class="file__upload-box">
+            <label for="file-upload" class="label__file-upload">
+              <ion-icon name="link-outline" class="file_upload-icon"></ion-icon>
+              <span id="file-name"><%= postData.image.split("_")[1] %></span>
+            </label>
+
+            <input
+              type="file"
+              id="file-upload"
+              name="image"
+              class="select__file"
+            />
+          </div>
+          <div>
+            <div id="editor"><%- postData.content %></div>
+            <textarea name="content" id="hiddenTextarea"></textarea>
+          </div>
+
+          <button class="login__btn btn-main">Publish</button>
+        </form>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script>
+      const quill = new Quill("#editor", {
+        theme: "snow",
+      });
+      document
+        .getElementById("post-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const content = quill.root.innerHTML;
+          document.getElementById("hiddenTextarea").value = content;
+          this.submit();
+        });
+    </script>
+    <%- include('layout/script.ejs') %>
+  </body>
+</html>
