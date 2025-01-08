@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layout/header.ejs') %>
+  <body>
+    <div class="section__navigation">
+      <a href="/app" class="logo">B</a>
+      <ul class="nav__container">
+        <li><a href="/app">Home</a></li>
+        <li>
+          <a class="query-message" href="/app/admin/<%= userId %>/admin-panel"
+            >Message</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="comment__container">
+      <% allQuery.forEach(query => { %>
+
+      <div class="comment" id="query-<%= query._id %>">
+        <div class="title__container u-modifier--position u-modifier--comment">
+          <div class="user u-modifier-user">
+            <div class="user__image">
+              <img src="<%= query.userId.image %>" alt="user-photo" />
+            </div>
+            <p class="user__name u-color-grey"><%= query.userId.name %></p>
+            <p class="user__post-date u-color-grey-lite"><%= query.time %></p>
+          </div>
+        </div>
+        <p class="comment__content"><%= query.message %></p>
+        <div class="icon__container">
+          <ion-icon
+            id="delete-btn-<%= query._id %>"
+            class="delete"
+            name="trash"
+          ></ion-icon>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <script>
+             const allQuery = <%- JSON.stringify(allQuery) %>;
+
+      allQuery.forEach(query => {
+        const deleteBtn = document.getElementById(`delete-btn-${query._id}`);
+
+        if (deleteBtn) {
+          deleteBtn.addEventListener("click", async () => {
+            try {
+              const isConfirm = window.confirm("Are you sure you want to delete this query message?")
+              if(isConfirm){
+
+                const response = await fetch(`/app/admin/${query._id}`, {
+                  method: "DELETE",
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  }
+                });
+
+                if (response.ok) {
+                  console.log("Query message deleted successfully!");
+
+                  const postElement = document.getElementById(`query-${query._id}`);
+                  if (postElement) {
+                    postElement.remove();
+                  }
+                } else {
+                  console.log("Error deleting post");
+                }
+              }else{
+                console.log("User cancelled the delete action")
+              }
+            } catch (error) {
+              console.error("Error with the fetch request:", error);
+            }
+          });
+        }
+      });
+    </script>
+    <%- include('layout/script.ejs') %>
+  </body>
+</html>
