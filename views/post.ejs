@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layout/header.ejs') %>
+  <body>
+    <div class="home__container">
+      <%- include('layout/navigation.ejs') %>
+      <div class="title__container u-modifier--container">
+        <p class="topic">Sports</p>
+        <h2 class="u-color-grey"><%= postData.title %></h2>
+        <div class="user">
+          <div class="user__image">
+            <img src="<%= postData.userId.image %>" alt="user-photo" />
+          </div>
+          <p class="user__name u-color-grey"><%= postData.userId.name %></p>
+          <p class="user__post-date u-color-grey-lite"><%= formattedDate %></p>
+        </div>
+      </div>
+      <div class="post__image">
+        <img
+          src="<%= postData.image %>"
+          alt="Post-image"
+          class="u-border-radius"
+        />
+      </div>
+
+      <!-- post content -->
+      <div class="post__detail">
+        <p><%- postData.content %></p>
+      </div>
+      <!-- review box -->
+      <div class="review__box">
+        <button id="like">
+          <ion-icon class="review__icon" name="thumbs-up"></ion-icon>
+        </button>
+        <% if (postData.likes ) { %>
+
+        <span id="show-like"><%= postData.likes.length %></span>
+        <% } %> <% if (!postData.likes ) { %>
+
+        <span id="show-like">0</span>
+        <% } %>
+        <button id="dislike">
+          <ion-icon class="review__icon" name="thumbs-down"></ion-icon>
+        </button>
+        <% if (postData.dislikes) { %>
+
+        <span id="show-dislike"><%= postData.dislikes.length %></span>
+        <% } %> <% if (!postData.dislikes) { %>
+
+        <span id="show-dislike">0</span>
+        <% } %>
+
+        <ion-icon class="message_icon" name="chatbox"></ion-icon>
+
+        <span><%= postData.comments.length %></span>
+      </div>
+
+      <!-- comments-section -->
+      <form
+        action="/app/comments/<%= postData._id %>"
+        method="POST"
+        enctype="x-www-form-urlencoded"
+        class="contact__admin u-margin-main"
+      >
+        <% if (sendMessageError) { %>
+        <p class="error"><%= sendMessageError %></p>
+        <% } %>
+        <textarea
+          name="content"
+          placeholder="Write your comments..."
+          class="text__area"
+        ></textarea>
+        <button type="submit" class="btn-main">Sumbit</button>
+      </form>
+
+      <!-- comments -->
+      <div class="comment__container">
+        <% updatedComments.forEach(comment => { %>
+
+        <div class="comment" id="comment-<%= comment._id %>">
+          <div
+            class="title__container u-modifier--position u-modifier--comment"
+          >
+            <div class="user u-modifier-user">
+              <div class="user__image">
+                <img src="<%= comment.userId.image %>" alt="user-photo" />
+              </div>
+              <p class="user__name u-color-grey"><%= comment.userId.name %></p>
+              <p class="user__post-date u-color-grey-lite">
+                <%= comment.time %>
+              </p>
+            </div>
+          </div>
+          <p class="comment__content"><%= comment.content %></p>
+          <% if (comment.isOwnComment) { %>
+
+          <div class="icon__container">
+            <ion-icon
+              id="edit-btn-<%= comment._id %>"
+              class="edit"
+              name="create"
+            ></ion-icon>
+            <ion-icon
+              id="delete-btn-<%= comment._id %>"
+              class="delete"
+              name="trash"
+            ></ion-icon>
+          </div>
+          <% } %>
+        </div>
+        <% }) %>
+      </div>
+
+      <%- include('layout/script.ejs') %>
+      <script>
+        // Ajax call
+        const comments = <%- JSON.stringify(updatedComments) %>;
+
+        comments.forEach(comment => {
+        const deleteBtn = document.getElementById(`delete-btn-${comment._id}`);
+
+        if (deleteBtn) {
+        deleteBtn.addEventListener("click", async () => {
+        try {
+          const isConfirm =  window.confirm("Are you sure you want to delete this comment?")
+          if(isConfirm){
+
+            const response = await fetch(`/app/comments/${comment._id}`, {
+            method: "DELETE",
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            }
+            });
+
+            if (response.ok) {
+            console.log("Commnet deleted successfully!");
+
+            const commentElement = document.getElementById(`comment-${comment._id}`);
+            if (commentElement) {
+            commentElement.remove();
+            }
+            } else {
+            console.log("Error deleting comment");
+            }
+          }else{
+            console.log("User canceled the delete action")
+          }
+        } catch (error) {
+        console.error("Error with the fetch request:", error);
+        }
+        });
+        }
+        });
+
+        const post = <%- JSON.stringify(postData) %>;
+
+
+        const likeBtn = document.getElementById("like");
+        const dislikeBtn = document.getElementById("dislike");
+        const showLike = document.getElementById("show-like");
+        const showDislike = document.getElementById("show-dislike");
+
+
+        likeBtn.addEventListener("click", async (e) => {
+        console.log("click")
+        e.preventDefault();
+
+        try {
+        const response = await fetch(`/app/posts/${post._id}/like`, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        }
+        });
+        if (!response.ok) {
+        console.log("Error adding like");
+        return;
+        }
+
+        const data = await response.json()
+        showLike.textContent = data.likes?.length
+        showDislike.textContent = data.dislikes?.length
+
+
+        } catch (err) {
+        console.log("Error occurred while adding like:", err);
+        }
+        });
+
+
+        dislikeBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        try {
+        const response = await fetch(`/app/posts/${post._id}/dislike`, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+
+        }
+        });
+
+        if (!response.ok) {
+        console.log("Error adding dislike");
+        return;
+        }
+        const data = await response.json()
+        showLike.textContent = data.likes?.length
+        showDislike.textContent = data.dislikes?.length
+        } catch (err) {
+        console.log("Error occurred while adding dislike:", err);
+        }
+        });
+      </script>
+      <%- include('layout/editComment.ejs') %>
+    </div>
+  </body>
+</html>
