@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layout/header.ejs') %>
+  <body>
+    <!-- navigation -->
+    <div class="home__container">
+      <%- include('layout/navigation.ejs') %>
+      <!-- hero section -->
+      <div class="hero__image--container">
+        <div class="image">
+          <img
+            class="hero__image"
+            src="<%= latestPost ? latestPost.image : '/img/hero.jpg' %>"
+            alt="Post-image"
+          />
+          <div class="title__container">
+            <% if (latestPost) { %>
+            <a href="/app/posts/<%= latestPost._id %>" class="btn--green"
+              >View post</a
+            >
+            <h2><%= latestPost.title %></h2>
+            <% } else { %>
+            <a href="#" class="btn--green">View post</a>
+            <h2>This is a sample title</h2>
+            <% } %>
+            <div class="user">
+              <div class="user__image">
+                <img
+                  src="<%= latestPost ? latestPost.userId.image : '/img/user.jpeg' %>"
+                  alt="user-photo"
+                />
+              </div>
+              <p class="user__name">
+                <%= latestPost ? latestPost.userId.name : 'Arnie Smith' %>
+              </p>
+              <p class="user__post-date">
+                <%= formattedDate || 'August 20, 2022' %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search post -->
+      <form
+        id="search-topic"
+        action="/app"
+        method="GET"
+        enctype="x-www-form-urlencoded"
+        class="search-bar"
+      >
+        <input
+          id="search-input"
+          class="search-bar__input"
+          type="text"
+          name="topic"
+          placeholder="Search Topics"
+        />
+        <button class="btn-search">
+          <ion-icon
+            id="search_btn"
+            class="search-bar__icon"
+            name="search-outline"
+          ></ion-icon>
+        </button>
+      </form>
+
+      <!-- Post card section -->
+      <h2 class="post__heading">Latest Posts</h2>
+
+      <div class="section__post-cards">
+        <% if (updatedPosts) { %> <% updatedPosts.forEach(post => { %>
+
+        <div class="cards">
+          <div class="cards__image">
+            <img src="<%= post.image %>" alt="Post-image" />
+            <p class="post__topic"><%= post.topic %></p>
+          </div>
+          <a href="/app/posts/<%= post._id %>" class="btn--card">View post</a>
+          <h2><%= post.title %></h2>
+          <div class="card-post__user">
+            <div class="card-post__user--image">
+              <img src="<%= post.userId.image %>" alt="user-photo" />
+            </div>
+            <p class="card-post__user--name"><%= post.userId.name %></p>
+            <p class="card-post__user--date"><%= post.formattedDate %></p>
+          </div>
+        </div>
+        <% }) %> <% } %> <% if (!updatedPosts.length) { %>
+
+        <p class="no-post">No posts available to view 😕</p>
+
+        <% } %>
+      </div>
+      <!-- Pagination -->
+      <div class="section__pagination">
+        <!-- Previous Button -->
+        <a
+          href="/app?page=<%= Math.max(Number(page) - 1, 1) %>"
+          class="section__pagination--previous"
+          >&larr; Previous</a
+        >
+
+        <!-- Page Numbers -->
+        <ul class="section__pagination--container">
+          <% const currentPage = Number(page); const startPage =
+          Math.max(1,currentPage - 2); const endPage = Math.min(lastPage,
+          currentPage + 2); const isStartLimited = startPage > 1; const
+          isEndLimited = endPage < lastPage %>
+
+          <!-- First page link if not shown -->
+          <% if (isStartLimited) { %>
+          <li
+            class="section__pagination--number <%= currentPage === 1 ? 'section__pagination--active' : '' %>"
+          >
+            <a href="/app?page=1">1</a>
+          </li>
+          <% if (startPage > 2) { %>
+          <li class="dots">...</li>
+          <% } %> <% } %>
+
+          <!-- Loop through the calculated range for the visible page numbers -->
+          <% for (let i = startPage; i <= endPage; i++) { %>
+          <li
+            class="section__pagination--number <%= currentPage === i ? 'section__pagination--active' : '' %>"
+          >
+            <a href="/app?page=<%= i %>"><%= i %></a>
+          </li>
+          <% } %>
+
+          <!-- Last page link if not shown -->
+          <% if (isEndLimited) { %> <% if (endPage < lastPage - 1) { %>
+          <li><p class="dots">...</p></li>
+          <% } %>
+          <li
+            class="section__pagination--number <%= currentPage === lastPage ? 'section__pagination--active' : '' %>"
+          >
+            <a href="/app?page=<%= lastPage %>"><%= lastPage %></a>
+          </li>
+          <% } %>
+        </ul>
+
+        <!-- Next Button -->
+        <a
+          href="/app?page=<%= Math.min(Number(page) + 1, lastPage) %>"
+          class="section__pagination--next"
+          >Next &rarr;</a
+        >
+      </div>
+
+      <!-- footer -->
+      <footer>
+        <div class="about">
+          <h3 class="about__title">About</h3>
+          <div>
+            <h4 class="about__heading">
+              Blogify App: A New Way to Share and Discover Blogs
+            </h4>
+            <p class="about__content">
+              Blogify is a versatile blogging platform where users can create,
+              read, and engage with a wide range of content from diverse topics
+              and categories. Built with simplicity and functionality in mind,
+              Blogify streamlines the process of creating and exploring blog
+              posts. It's designed to inspire users to express themselves
+              through writing, connect with like-minded individuals, and stay
+              updated on various trends and insights.
+            </p>
+          </div>
+          <div>
+            <p class="about__email">
+              <span>Email : </span>blogify.test@gmail.com
+            </p>
+            <p class="contact-number">
+              <span>Contact : </span>+123-635-372-890
+            </p>
+          </div>
+        </div>
+        <div class="quick__link">
+          <h3 class="about__title">Quick Link</h3>
+          <a href="/app">Home</a>
+          <a href="/app/about">About</a>
+          <a href="/app">Blog</a>
+          <a href="/app">Contact</a>
+        </div>
+
+        <div class="contact">
+          <h3 class="contact-form__title">Contact Us</h3>
+          <form
+            action="/app/admin/send-message"
+            method="POST"
+            enctype="x-www-form-urlencoded"
+            class="contact__admin"
+          >
+            <% if (sendMessageError) { %>
+            <p class="error"><%= sendMessageError %></p>
+            <% } %>
+            <textarea
+              name="message"
+              placeholder="Send any suggestions or comments to the admin"
+              class="text__area"
+            ></textarea>
+            <button type="submit" class="btn-main">Send</button>
+          </form>
+          <div class="copyright__wrapper">
+            <div class="copyright">
+              <a href="/app" class="logo">B</a>
+              <p class="copyright">
+                &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                Blogify. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <%- include('layout/script.ejs') %>
+    <script>
+      document.getElementById("search-topic").addEventListener("submit", () => {
+        setTimeout(() => {
+          document.getElementById("search-input").value = "";
+          this.reset();
+        }, 0);
+      });
+    </script>
+  </body>
+</html>
