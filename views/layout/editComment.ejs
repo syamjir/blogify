@@ -1,0 +1,90 @@
+<script>
+  // Edit comment
+
+  function timeAgo(date) {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    const intervals = {
+      year: 31536000,
+      month: 2592000,
+      week: 604800,
+      day: 86400,
+      hour: 3600,
+      minute: 60,
+      second: 1,
+    };
+
+    for (const key in intervals) {
+      const interval = Math.floor(seconds / intervals[key]);
+      if (interval >= 1) {
+        return `${interval} ${key}${interval > 1 ? "s" : ""} ago`;
+      }
+    }
+    return "just now";
+  }
+
+  comments.forEach((comment) => {
+    const editBtn = document.getElementById(`edit-btn-${comment._id}`);
+
+    const formEl = `
+    <form
+      class="contact__admin u-position-form"
+      id="edit-form-${comment._id}"
+    >
+      <textarea
+        name="content"
+        placeholder="Edit your comments..."
+        class="text__area"
+      >${comment.content}</textarea>
+      <button type="submit" class="btn-main">Submit</button>
+    </form>`;
+
+    editBtn.addEventListener("click", () => {
+      let existingForm = document.getElementById(`edit-form-${comment._id}`);
+
+      // Toggle form display
+      if (existingForm) {
+        existingForm.remove();
+      } else {
+        document
+          .getElementById(`comment-${comment._id}`)
+          .insertAdjacentHTML("afterend", formEl);
+        existingForm = document.getElementById(`edit-form-${comment._id}`);
+
+        // Add submit event listener after form is in the DOM
+        existingForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          try {
+            const response = await fetch(`/app/comments/${comment._id}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: new URLSearchParams(new FormData(existingForm)),
+            });
+
+            if (response.ok) {
+              const updatedComment = await response.json();
+              const commentContent = document.querySelector(
+                `#comment-${comment._id} .comment__content`
+              );
+              const timeContent = document.querySelector(
+                `#comment-${comment._id} .user .user__post-date`
+              );
+              if (commentContent && timeContent) {
+                commentContent.textContent = updatedComment.content;
+                timeContent.textContent = timeAgo(updatedComment.updatedAt);
+              }
+              existingForm.remove();
+
+              console.log("Successfully edited the comment");
+            } else {
+              console.log("Error editing the comment");
+            }
+          } catch (err) {
+            console.error("Error with the fetch request:", err);
+          }
+        });
+      }
+    });
+  });
+</script>
