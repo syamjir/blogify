@@ -1,0 +1,16 @@
+<div class="section__navigation">
+  <a href="/app" class="logo">B</a>
+  <ul class="nav__container">
+    <li><a href="/app">Home</a></li>
+    <li><a href="/app/about">About</a></li>
+    <% if (isAdmin) { %>
+    <li><a href="/app/admin/<%= userId %>/admin-panel">Admin</a></li>
+    <% } %> <% if (isUserLogedIn) { %>
+    <li><a href="/app/account/<%= userId %>">Account</a></li>
+    <li><a href="/app/auth/logout">Log Out</a></li>
+    <% } %> <% if (!isUserLogedIn) { %>
+    <li><a href="/app/auth/login">Login</a></li>
+    <li><a href="/app/auth/signup">New User</a></li>
+    <% } %>
+  </ul>
+</div>
