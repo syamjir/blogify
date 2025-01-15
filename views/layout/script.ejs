@@ -1,0 +1,35 @@
+<script
+  type="module"
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+  nomodule
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+></script>
+<script>
+  const windowWidth = window.innerWidth;
+  const nav = document.querySelector(".nav__container");
+  const container = document.querySelector(".section__navigation");
+
+  if (windowWidth <= 820) {
+    nav.classList.add("mobile__container");
+    nav.classList.add("u-display");
+    container.insertAdjacentHTML(
+      "beforeend",
+      '<ion-icon class="icon__menu" name="menu"></ion-icon>'
+    );
+    const menuIcon = document.querySelector(".icon__menu");
+    menuIcon.addEventListener("click", () => {
+      if (!nav.classList.contains("u-display")) {
+        nav.classList.add("u-display");
+      } else {
+        nav.classList.remove("u-display");
+      }
+    });
+    document.addEventListener("click", function (e) {
+      if (!menuIcon.contains(e.target)) {
+        nav.classList.add("u-display");
+      }
+    });
+  }
+</script>
