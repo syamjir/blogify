@@ -1,0 +1,88 @@
+.u-text-medium {
+  font-size: 2.6rem;
+}
+
+.u-text-large {
+  font-size: 3rem;
+  line-height: 1.2;
+}
+
+.u-primary-gradient {
+  background: linear-gradient(
+    to right bottom,
+    rgba($color-primary, 1),
+    rgba($color-primary-light, 1)
+  );
+}
+
+.u-color-white-shine {
+  background-color: $color-white-shine;
+}
+
+.u-box-width-medium {
+  width: 80%;
+}
+
+.u-color-white {
+  color: $color-white;
+}
+
+.u-padding {
+  padding: 2rem;
+}
+
+.u-display {
+  opacity: 0;
+}
+
+.u-modifier--container {
+  position: static !important;
+  margin: 4rem 0 0 10rem !important;
+}
+
+.u-color-grey {
+  color: $color-grey !important;
+}
+
+.u-color-grey-lite {
+  color: $color-grey-lite !important;
+}
+
+.u-margin-main {
+  margin: 2rem 10rem;
+
+  @media (max-width: 750px) {
+    margin: 2rem 2rem;
+  }
+}
+
+.u-modifier--comment {
+  margin: 0 !important;
+
+  @media (max-width: 750px) {
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 750px) {
+  .u-modifier--container {
+    margin: 6rem 0 0 2rem !important;
+  }
+
+  .u-modifier-user {
+    flex-direction: column !important;
+    align-items: start !important;
+  }
+}
+
+#editor {
+  font-size: 1.8rem;
+}
+
+#title {
+  width: 100%;
+}
+
+.u-update-background {
+  background-color: $color-primary;
+}
