@@ -1,0 +1,49 @@
+.btn:link,
+.btn:visited,
+.btn-main,
+.btn--green,
+.btn--card {
+  @include btnStyle;
+  color: $color-primary-dark;
+  background-color: $color-white;
+  font-size: 1.6rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    background-color: $color-primary-light;
+  }
+
+  &:active {
+    color: $color-primary;
+  }
+}
+
+// Additional styling for .btn--green
+.btn--green {
+  padding: 0.8rem 1.2rem;
+
+  &:hover {
+    background-color: $color-white-shine;
+  }
+}
+
+// Additional styling for .btn--card
+.btn--card {
+  padding: 0.6rem 1.2rem;
+
+  &:hover {
+    color: $color-white;
+  }
+
+  &:active {
+    background-color: $color-white;
+  }
+}
+
+// Styling for .btn-main
+.btn-main {
+  width: 100%;
+  cursor: pointer;
+}
