@@ -1,0 +1,71 @@
+// Pagination Container Styling
+.section__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 10rem;
+  margin-top: 6rem;
+  font-family: Arial, sans-serif;
+  width: 100%;
+
+  &--previous,
+  &--next {
+    font-size: 1.4rem;
+    color: $color-primary-dark;
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid $color-primary-dark;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: $color-primary-dark;
+      color: $color-white;
+    }
+  }
+}
+
+// Pagination Numbers Styling
+.section__pagination--container {
+  display: flex;
+  gap: 0.8rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .section__pagination--number {
+    a {
+      display: block;
+      padding: 0.8rem 1.4rem;
+      font-size: 1.4rem;
+      color: $color-primary-dark;
+      text-decoration: none;
+      border: 2px solid $color-primary-dark;
+      border-radius: 0.5rem;
+      transition: background-color 0.3s, color 0.3s;
+
+      &:hover {
+        background-color: $color-primary-dark;
+        color: $color-white;
+      }
+    }
+
+    &.section__pagination--active a {
+      background-color: $color-primary-dark;
+      color: $color-white;
+      font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .section__pagination {
+    padding: 0 2rem;
+
+    &--container {
+      width: 0;
+      display: none;
+    }
+  }
+}
