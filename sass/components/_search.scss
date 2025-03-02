@@ -1,0 +1,39 @@
+.search-bar {
+  width: auto;
+  margin: 12rem 8rem 4rem;
+  background-color: $color-white;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  border: 2px solid $color-primary-dark;
+  border-radius: 10rem;
+  animation: moveInTop 1s ease-out;
+
+  &:hover {
+    border-color: $color-primary-light;
+  }
+
+  input {
+    width: 100%;
+    border: none;
+    font-size: 1.6rem;
+    background-color: inherit;
+    color: $color-grey;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__icon {
+    font-size: 2rem;
+    color: $color-primary;
+  }
+}
+
+@media (max-width: 520px) {
+  .search-bar {
+    margin: 12rem 2rem 4rem;
+    padding: 1.5rem 2rem;
+  }
+}
