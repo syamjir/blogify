@@ -1,0 +1,160 @@
+.left {
+  @include loginbox;
+  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+  margin-left: 20%;
+  width: 120%;
+}
+
+.text__box {
+  max-width: 40rem;
+  line-height: 1.6;
+  position: relative;
+  animation: moveInRight 1s ease-out 0.5s backwards;
+
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 2px solid $color-white-shine;
+    border-radius: 0.5rem;
+    transform: scale(1.2);
+    top: 0;
+    left: 0;
+  }
+
+  &--heading {
+    font-size: 3.6rem;
+    font-weight: 700;
+    color: $color-white-shine;
+  }
+
+  &--content {
+    font-size: 1.6rem;
+    color: $color-white;
+    font-weight: 400;
+  }
+}
+
+.right {
+  @include loginbox;
+  margin-right: 20%;
+  width: 120%;
+}
+
+.input-text__box {
+  color: $color-grey;
+  line-height: 1.5;
+
+  &--heading {
+    font-weight: 700;
+  }
+
+  &--content {
+    font-weight: 400;
+    font-size: 1.6rem;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  font-weight: 400;
+  gap: 2rem;
+  animation: moveInTop 1s ease-out backwards;
+
+  .input__box {
+    display: flex;
+    font-size: 1.8rem;
+    color: $color-grey-lite;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid $color-grey-lite;
+    border-radius: 0.5rem;
+
+    &--email,
+    &--text,
+    &--password {
+      outline: none;
+      border: none;
+      font-size: 1.4rem;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+    }
+  }
+
+  .forgot__password {
+    font-size: 1.5rem;
+    color: $color-grey-lite;
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-color: $color-primary-dark;
+    transition: all 1s;
+    margin: -1.5rem 0;
+
+    &:link,
+    &:visited {
+      text-decoration: underline;
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      color: $color-primary;
+    }
+  }
+
+  .login__btn {
+    border-radius: 0.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .text__box {
+    width: 26rem;
+    line-height: 1.4;
+
+    &::before {
+      transform: scale(0) !important;
+    }
+  }
+}
+
+@media (max-width: 740px) {
+  .image-wrapper {
+    width: 90%;
+  }
+}
+
+@media (max-width: 1020px) {
+  .main {
+    padding: 0;
+
+    .right,
+    .left {
+      width: 100% !important;
+      margin: 0;
+      height: 55dvh;
+    }
+
+    .left {
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+      margin-bottom: -5dvh;
+    }
+
+    .right {
+      margin-top: -5dvh;
+    }
+  }
+
+  .container {
+    margin-top: 4rem;
+    gap: 1.4rem;
+  }
+}
