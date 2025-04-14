@@ -8,7 +8,11 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 7000
-ENV PORT=7000
+EXPOSE 4000
 
-CMD [ "npm","start" ]
+ENV MONGODB_USERNAME=root
+ENV MONGODB_PASSWORD=secret
+ENV MONGODB_URL=mongodb
+ENV PORT=4000
+
+CMD ["npm", "start"]
