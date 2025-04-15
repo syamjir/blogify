@@ -1,21 +1,27 @@
 version: "3.8"
 services:
   mongodb:
-    image: mongo
+    image: "mongo"
     volumes:
       - data:/data/db
     env_file:
-      - ./mongo.env
+      - ./env/mongo.env
+  redis:
+    image: "redis"
+    container_name: redis-session-store
+    ports:
+      - "6379:6379"
   backend:
     build: ./
     ports:
-      - "7000:7000"
+      - "4000:4000"
     volumes:
       - ./:/app
       - /app/node_modules
     env_file:
-      - ./backend.env
+      - ./env/backend.env
     depends_on:
       - mongodb
+
 volumes:
   data:
