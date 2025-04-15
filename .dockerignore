@@ -1,4 +1,33 @@
+# Node modules
 node_modules
-Dockerfile
-.git
+npm-debug.log
+
+
+# Logs
 *.log
+
+# dotenv environment files
+.env
+.env.*
+
+# OS / system files
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Docker files
+.dockerignore
+
+
+
+# Build outputs
+dist
+build
+out
+
+
+
+
