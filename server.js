@@ -12,12 +12,17 @@ const MongoStore = require("connect-mongo");
 const cors = require("cors");
 const app = express();
 app.use(cors());
+const RedisStore = require("connect-redis")(expressSession);
+const { createClient } = require("redis");
 
 const port = process.env.PORT || 4000;
 mongoose
   .connect(
-    `mongodb+srv://rsyamjir:${process.env.PASSWORD}@cluster0.xh6fb.mongodb.net/my_database`,
-    { autoIndex: false }
+    `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_URL}:27017/blogify?authSource=admin`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
   )
   .then(() => {
     console.log("Data base connected successfully");
@@ -28,25 +33,24 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  fileUpload({
-    useTempFiles: true,
-    tempFileDir: "./public/img/temp",
-  })
-);
+app.use(fileUpload());
 
 app.use(flash());
+const redisClient = createClient({
+  legacyMode: true,
+  socket: {
+    host: "redis", // compose service name
+    port: 6379,
+  },
+});
+redisClient.connect().catch(console.error);
 app.use(
   expressSession({
-    secret: process.env.SECRET,
+    store: new RedisStore({ client: redisClient }),
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-      mongoUrl: `mongodb+srv://rsyamjir:${process.env.PASSWORD}@cluster0.xh6fb.mongodb.net/my_database`, // MongoDB URI
-    }),
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
-    },
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day
   })
 );
 
