@@ -25,6 +25,8 @@ exports.userSignup = async (req, res) => {
   try {
     const createdUser = await User.create(req.body);
     console.log(createdUser);
+    req.session.userId = createdUser._id;
+    req.session.save();
     res.redirect("/app");
   } catch (err) {
     console.log("Signup failure:", err);
@@ -41,7 +43,6 @@ exports.userSignup = async (req, res) => {
 exports.userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
     if (!email || !password) {
       throw new Error("Please provide both email and password.");
     }
@@ -57,6 +58,8 @@ exports.userLogin = async (req, res) => {
       throw new Error("Incorrect password. Please try again.");
     }
     req.session.userId = registeredUser._id;
+    req.session.isAdmin = registeredUser.role === "admin";
+    req.session.save();
     res.redirect("/app");
   } catch (err) {
     console.log("Login failure:", err);
