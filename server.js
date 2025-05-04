@@ -1,3 +1,4 @@
+const initDatabase = require("./db/init");
 const express = require("express");
 require("dotenv").config();
 const path = require("path");
@@ -15,38 +16,19 @@ app.use(cors());
 const RedisStore = require("connect-redis")(expressSession);
 const { createClient } = require("redis");
 
-const port = process.env.PORT || 4000;
-mongoose
-  .connect(
-    `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_URL}:27017/blogify?authSource=admin`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
-  .then(() => {
-    console.log("Data base connected successfully");
-  })
-  .catch((err) => {
-    console.log("Data base connection failure:", err);
-  });
+const port = process.env.NODE_PORT || 4000;
+initDatabase();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(fileUpload());
-
 app.use(flash());
-const redisClient = createClient({
-  legacyMode: true,
-  socket: {
-    host: "redis", // compose service name
-    port: 6379,
-  },
-});
-redisClient.connect().catch(console.error);
 app.use(
   expressSession({
-    store: new RedisStore({ client: redisClient }),
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI, 
+      dbName: "sessions", 
+      collectionName: "userSessions", 
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
