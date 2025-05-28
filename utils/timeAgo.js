@@ -1,3 +1,9 @@
+// ========================
+// Time Ago Utility
+// ========================
+// Converts a timestamp into a relative time string.
+// Example: "2025-05-28T10:00:00Z" → "2 hours ago"
+
 function timeAgo(timestamp) {
   const now = new Date();
   const date = new Date(timestamp);

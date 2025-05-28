@@ -2,6 +2,7 @@ const Comment = require("../models/commentModel");
 const Post = require("../models/postModel");
 const { updateSearchIndex } = require("../models/queryModel");
 
+// Add a new comment to a post and update the post's comments array
 exports.addComment = async (req, res) => {
   try {
     const postId = req.params.postId;
@@ -24,6 +25,7 @@ exports.addComment = async (req, res) => {
   }
 };
 
+// Delete a comment and remove its reference from the associated post
 exports.deleteComment = async (req, res) => {
   try {
     const commentId = req.params.id;
@@ -44,6 +46,7 @@ exports.deleteComment = async (req, res) => {
   }
 };
 
+// Update an existing comment by ID
 exports.updateComment = async (req, res) => {
   try {
     const id = req.params.id;

@@ -10,7 +10,7 @@ const dateFormatter = require("../utils/dateFormatter");
 
 const router = express.Router();
 
-// home routes
+// Home Route
 router.get("/app", async (req, res) => {
   try {
     const entries = 4;
@@ -20,14 +20,13 @@ router.get("/app", async (req, res) => {
     const queryTopic = req.query.topic;
     const isAdmin = req.session.isAdmin;
 
-    // Redirect to login if topic is queried but the user is not logged in
     if (queryTopic && !isUserLogedIn) {
       return res.redirect("/app/auth/login");
     }
 
     const userId = req.session.userId;
 
-    // Fetch the latest post
+    // Get latest post
     const latestPost = await Post.findOne()
       .sort({ createdAt: -1 })
       .populate("userId");
@@ -36,7 +35,7 @@ router.get("/app", async (req, res) => {
       console.log("Error retrieving the latest post");
     }
 
-    // Fetch paginated posts based on topic (if provided)
+    // Get paginated posts with optional topic filtering
     const queryFilter = queryTopic ? { topic: queryTopic } : {};
     const allPosts = await Post.find(queryFilter)
       .skip((page - 1) * entries)
@@ -77,30 +76,33 @@ router.get("/app", async (req, res) => {
   }
 });
 
-// about route
+// About Route
 router.get("/app/about", (req, res) => {
   try {
     res.render("about");
   } catch (err) {
-    console.log("Error occured while render about page");
+    console.log("Error occurred while rendering about page");
   }
 });
 
-// Use auth routes
+// Mount Feature Routes
+
+// Auth routes
 router.use("/app/auth", authRoutes);
 
-// Use admin routes
+// Admin panel routes (protected)
 router.use("/app/admin", authMiddleware, adminRoutes);
 
-// Use post routes
+// Post routes (protected)
 router.use("/app/posts", authMiddleware, postRoutes);
 
-// Use account routes
+// Account routes (protected)
 router.use("/app/account", authMiddleware, accountRoutes);
 
-// Use comment routes
+// Comment routes
 router.use("/app/comments", commentRoutes);
 
+// 404 Not Found Handler
 router.use((_, res) => {
   res.render("notFound");
 });

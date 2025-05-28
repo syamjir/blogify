@@ -1,0 +1,29 @@
+.login__promt {
+  font-size: 1.6rem;
+  margin: 0 auto;
+  color: $color-grey-lite;
+
+  .login__link:link,
+  .login__link:visited {
+    font-size: 1.5rem;
+    color: $color-grey;
+  }
+}
+.text__box {
+  &--modifier {
+    margin-left: 18rem;
+    line-height: 1.4;
+  }
+  &--content {
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 1020px) {
+  .u-padding-bottom {
+    padding-bottom: 5rem;
+  }
+  .text__box--modifier {
+    margin-left: 0;
+  }
+}

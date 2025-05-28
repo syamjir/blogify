@@ -1,7 +1,18 @@
-// cloudinaryUploader.js
-
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
+
+/**
+ * Cloudinary uploader module for handling image uploads and deletions.
+ *
+ * Features:
+ * - Uploads images to Cloudinary under the "blogify" folder.
+ * - Extracts public ID from image URL for deletion.
+ * - Deletes images from Cloudinary by public ID.
+ *
+ * Usage:
+ * - uploadToCloudinary(fileName, filePath): Uploads a file and returns its secure URL.
+ * - deleteFromCloudinary(url): Deletes an image from Cloudinary using its URL.
+ */
 
 class Cloudinary {
   constructor() {

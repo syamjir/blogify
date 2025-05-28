@@ -2,6 +2,8 @@ version: "3.8"
 services:
   mongodb:
     image: "mongo"
+    ports:
+      - "27017:27017"
     volumes:
       - data:/data/db
     env_file:
@@ -20,6 +22,7 @@ services:
       - /app/node_modules
     env_file:
       - ./env/backend.env
+      - ./env/cloudinary.env
     depends_on:
       - mongodb
 

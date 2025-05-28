@@ -1,4 +1,5 @@
 const express = require("express");
+const multerUploader = require("../helper/multer");
 const {
   getPost,
   createPost,
@@ -8,27 +9,28 @@ const {
   addLike,
   addDislike,
 } = require("../controllers/postController");
+
 const router = express.Router();
 
-// Show post
+// GET: Show a specific post
 router.get("/:id", getPost);
 
-// show edit
+// GET: Render edit post page
 router.get("/:id/edit", editPost);
 
-// Create post
-router.post("/new", createPost);
+// POST: Create a new post with image upload
+router.post("/new", multerUploader().single("image"), createPost);
 
-// update post
-router.post("/:id", updatePost);
+// POST: Update a post by ID with optional image upload
+router.post("/:id", multerUploader().single("image"), updatePost);
 
-// Delete post
+// DELETE: Delete a post by ID
 router.delete("/:id", deletePost);
 
-// add like
+// POST: Like a post
 router.post("/:id/like", addLike);
 
-// add dislike
+// POST: Dislike a post
 router.post("/:id/dislike", addDislike);
 
 module.exports = router;

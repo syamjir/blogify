@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
+// Render login page with temp user data and login error message
 exports.login = (req, res) => {
   const tempUserData = req.flash("tempUserData") || [];
   const loginError = req.flash("loginError") || "";
@@ -8,7 +9,7 @@ exports.login = (req, res) => {
   res.render("login", { tempUserData: formattedUserData, loginError });
 };
 
-// When the user visits the signup page.
+// Render signup page with validation errors and temp user data
 exports.signup = (req, res) => {
   const errors = req.flash("validationErrors") || [];
   const tempUserData = req.flash("tempUserData") || [];
@@ -20,7 +21,7 @@ exports.signup = (req, res) => {
   });
 };
 
-// When the user signs up
+// Handle user signup and session creation
 exports.userSignup = async (req, res) => {
   try {
     const createdUser = await User.create(req.body);
@@ -33,13 +34,13 @@ exports.userSignup = async (req, res) => {
     const validationErrors = Object.keys(err.errors).map((key) => {
       return { [err.errors[key].path]: err.errors[key].message };
     });
-    console.log(validationErrors);
     req.flash("validationErrors", validationErrors);
     req.flash("tempUserData", req.body);
     res.redirect("/app/auth/signup");
   }
 };
 
+// Handle user login and session setup
 exports.userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -69,6 +70,7 @@ exports.userLogin = async (req, res) => {
   }
 };
 
+// Handle user logout and session destroy
 exports.userLogout = (req, res) => {
   try {
     req.session.destroy();

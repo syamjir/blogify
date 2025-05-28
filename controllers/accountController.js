@@ -7,6 +7,7 @@ const Comment = require("../models/commentModel");
 const timeAgo = require("../utils/timeAgo");
 const { uploadToCloudinary } = require("../helper/cloudinary");
 
+// Fetch and render user account data including posts and comments
 exports.getUserAccount = async (req, res) => {
   try {
     const id = req.params.id;
@@ -46,6 +47,7 @@ exports.getUserAccount = async (req, res) => {
   }
 };
 
+// Handle profile photo update, resizing, and cloud upload
 exports.updateUserPhoto = async (req, res) => {
   try {
     inputPath = req.file.path;

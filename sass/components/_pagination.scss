@@ -2,12 +2,12 @@
 .section__pagination {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   padding: 1rem 10rem;
-  margin-top: 6rem;
   font-family: Arial, sans-serif;
   width: 100%;
+  justify-content: space-between;
+  margin-top: 6rem;
 
   &--previous,
   &--next {
@@ -17,7 +17,7 @@
     padding: 0.8rem 1.2rem;
     border: 2px solid $color-primary-dark;
     border-radius: 0.5rem;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s color 0.3s;
 
     &:hover {
       background-color: $color-primary-dark;
@@ -38,12 +38,12 @@
     a {
       display: block;
       padding: 0.8rem 1.4rem;
-      font-size: 1.4rem;
       color: $color-primary-dark;
       text-decoration: none;
       border: 2px solid $color-primary-dark;
       border-radius: 0.5rem;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.3s color 0.3s;
+      font-size: 1.4rem;
 
       &:hover {
         background-color: $color-primary-dark;
@@ -62,10 +62,12 @@
 @media (max-width: 850px) {
   .section__pagination {
     padding: 0 2rem;
-
     &--container {
       width: 0;
       display: none;
     }
   }
+}
+.dots {
+  font-size: 1.8rem;
 }

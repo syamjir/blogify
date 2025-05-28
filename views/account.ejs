@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!-- Include common header content like meta tags, title, CSS links -->
   <%- include('layout/header.ejs') %>
+  
+  <!-- Quill rich text editor CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css"
     rel="stylesheet"
   />
+  
   <body>
     <div class="home__container">
+      <!-- Sidebar Navigation Section -->
       <div class="section__navigation">
         <div class="user">
           <div class="user__image">
+            <!-- Display logged-in user's profile image -->
             <img src="<%= userData.image %>" alt="user-photo" />
           </div>
+          <!-- Display logged-in user's name -->
           <p class="user__name u-color-grey"><%= userData.name %></p>
         </div>
 
+        <!-- Navigation links to toggle between sections -->
         <ul class="nav__container">
           <li><a href="/app">Home</a></li>
           <li id="make-post"><a id="post" href="#">Make Post</a></li>
@@ -25,14 +33,9 @@
         </ul>
       </div>
 
-      <!-- body part -->
+      <!-- Main content section where forms and lists are shown -->
       <div class="section__account">
-        <!-- position element -->
-
-        <!-- <div class="section__illustration">
-          <img src="/img/illustration.jpg" alt="illustartion-image" />
-        </div> -->
-
+        <!-- Make Post Form -->
         <div id="create-post-form">
           <div class="input-text__box u-modifier-box">
             <h2 class="input-text__box--heading u-text-large">
@@ -43,6 +46,7 @@
             </p>
           </div>
 
+          <!-- Form for creating a new blog post -->
           <form
             class="container"
             action="/app/posts/new"
@@ -50,6 +54,7 @@
             enctype="multipart/form-data"
             id="post-form"
           >
+            <!-- Post Title Input -->
             <div class="input__box">
               <ion-icon
                 name="pencil-outline"
@@ -64,18 +69,18 @@
               />
             </div>
 
+            <!-- Post Topic Dropdown -->
             <div class="input__box">
               <select
                 name="topic"
                 id="topic"
-                name="topic"
                 required
                 class="select"
               >
                 <option value="" disabled selected>Select a topic</option>
                 <option value="Tech">Tech</option>
                 <option value="Sports">Sports</option>
-                <option value="Health">Health</option>
+                <option value="Health">Health</option>  
                 <option value="Travel">Travel</option>
                 <option value="LifeStyle">Lifestyle</option>
                 <option value="Food">Food</option>
@@ -88,6 +93,7 @@
               </select>
             </div>
 
+            <!-- Image Upload for post -->
             <div class="file__upload-box">
               <label for="file-upload" class="label__file-upload">
                 <ion-icon
@@ -104,16 +110,20 @@
                 class="select__file"
               />
             </div>
+
+            <!-- Quill Rich Text Editor container -->
             <div>
               <div id="editor"></div>
-              <textarea name="content" id="hiddenTextarea"></textarea>
+              <!-- Hidden textarea to store Quill content on form submit -->
+              <textarea name="content" id="hiddenTextarea" style="display:none;"></textarea>
             </div>
 
+            <!-- Submit button -->
             <button class="login__btn btn-main">Publish</button>
           </form>
         </div>
 
-        <!-- when click comments -->
+        <!-- Comments Section -->
         <div id="comment-box" >
           <div class="input-text__box">
             <h2 class="input-text__box--heading u-text-large">
@@ -121,45 +131,57 @@
             </h2>
             <p class="u-modify-title">Check all your comments</p>
           </div>
+
           <div class="comments-list">
+            <!-- Display message if no comments -->
             <% if (!comments.length) { %>
                 <p class="no-comment">No comments have been added yet.</p>
             <% } %>
             
+            <!-- Loop through comments and display each -->
             <% comments.forEach(comment => { %>
-             
               <div id="comment-<%= comment._id %>" class="comment-in-account">
                 <div
                   class="title__container u-modifier--position u-modifier--comment"
                 >
                   <div class="user u-modifier-user">
+                    <!-- Commenter profile image -->
                     <div class="user__image">
                       <img src="<%= comment.userId.image %>" alt="user-photo" />
                     </div>
+                    <!-- Commenter name -->
                     <p class="user__name u-color-grey"><%= comment.userId.name %></p>
+                    <!-- Comment time -->
                     <p class="user__post-date u-color-grey-lite">
                       <%= comment.time %>
                     </p>
                   </div>
                 </div>
+
+                <!-- Comment content -->
                 <p class="comment__content">
                  <%= comment.content%>
-                 
                 </p>
+
+                <!-- If comment belongs to a post, show post title -->
                 <% if (comment.postId) { %>
-                 
-                  <p class="commentedOn"> <span class="right-entity">&#10095;</span></ion-icon> <span><%= comment.postId.title %></span> </p>
+                  <p class="commentedOn">
+                    <span class="right-entity">&#10095;</span>
+                    <span><%= comment.postId.title %></span>
+                  </p>
                 <% } %>
+
+                <!-- Edit and Delete icons for each comment -->
                 <div class="icon__container">
                   <ion-icon id="edit-btn-<%= comment._id %>" class="edit" name="create"></ion-icon>
                   <ion-icon id="delete-btn-<%= comment._id %>" class="delete" name="trash"></ion-icon>
                 </div>
               </div>
             <% }) %>
-            
           </div>
         </div>
 
+        <!-- Profile Photo Update Section -->
         <div id="update-pic-box">
           <div class="input-text__box u-modifier-box">
             <h2 class="input-text__box--heading u-text-large">
@@ -167,6 +189,8 @@
             </h2>
             <p class="u-modify-title">Update your profile with a fresh look</p>
           </div>
+
+          <!-- Form to upload new profile image -->
           <form
             action="/app/account/<%= userData._id %>/update-user-photo"
             method="POST"
@@ -192,7 +216,8 @@
             <button class="login__btn btn-main u-modifier-btn">Submit</button>
           </form>
         </div>
-        <!-- blog list -->
+
+        <!-- Blog Posts List Section -->
         <div id="blog-list-section">
           <div class="input-text__box u-modifier-box">
             <h2 class="input-text__box--heading u-text-large">
@@ -203,8 +228,10 @@
             </p>
           </div>
           <div class="cards_list">
+            <!-- Check if user has posts -->
             <% if (userPosts.length > 0) { %>
 
+              <!-- Loop through user's posts -->
               <% userPosts.forEach(post => { %>
                 <div class="cards-item" id="post-<%= post._id  %>">
                   <div>
@@ -214,26 +241,27 @@
                     <%= post.title %>
                   </h2>
                   <div class="btn-container">
+                    <!-- Edit post link -->
                     <a href="/app/posts/<%= post._id %>/edit" class="edit_btn">Edit</a>
+                    <!-- Delete post button -->
                     <button id="delete-btn-<%= post._id %>" class="delete_btn">Delete</button>
                   </div>
                 </div>
               <% }) %>
             
             <% } else { %>
+              <!-- Message if no posts -->
               <p class="no-post">There is no post published!</p>
             <% } %>
-
-            
-            
-            
           </div>
       </div>
     </div>
+
+    <!-- Quill rich text editor JS -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     
-
-    <script >
+    <script>
+      // Update selected file name for post image upload
       document
         .getElementById("file-upload")
         .addEventListener("change", function () {
@@ -243,6 +271,8 @@
 
           document.getElementById("file-name").textContent = selectedFileName;
         });
+
+      // Update selected file name for profile photo upload
       document
         .getElementById("image-upload")
         .addEventListener("change", function () {
@@ -252,34 +282,43 @@
 
           document.getElementById("image-name").textContent = selectedFileName;
         });
-      // text editor
+
+      // Initialize Quill editor
       const quill = new Quill("#editor", {
         modules: { toolbar: true },
         theme: "snow",
       });
-      //   form submittion
+
+      // On form submit, set the hidden textarea value to Quill editor content as HTML
       document
         .getElementById("post-form")
         .addEventListener("submit", function (e) {
-          e.preventDefault();
+          e.preventDefault(); // prevent default to set hidden textarea
           const content = quill.root.innerHTML;
           document.getElementById("hiddenTextarea").value = content;
-          this.submit();
+          this.submit(); // submit form after setting content
         });
-      // navigate to form and comments
+
+      // Function to toggle between different sections (Make Post, Comments, Profile Pic, Blog List)
       function showSection(section) {
         const formSection = document.getElementById("create-post-form");
         const commentSection = document.getElementById("comment-box");
         const updatePhotoSection = document.getElementById("update-pic-box");
         const blogSection = document.getElementById("blog-list-section");
+
+        // Hide all sections initially
         formSection.style.display = "none";
         commentSection.style.display = "none";
         updatePhotoSection.style.display = "none";
         blogSection.style.display = "none";
+
+        // Reset navigation link colors
         document.getElementById("post").style.color = "#555";
         document.getElementById("comment").style.color = "#555";
         document.getElementById("pic").style.color = "#555";
         document.getElementById("blog").style.color = "#555";
+
+        // Show selected section and highlight link
         if (section === "form") {
           formSection.style.display = "block";
           document.getElementById("post").style.color = "#003d35";
@@ -294,9 +333,13 @@
           document.getElementById("blog").style.color = "#003d35";
         }
       }
+
+      // Show Make Post form by default on page load
       window.addEventListener("load", () => {
         showSection("form");
       });
+
+      // Event listeners for navigation links
       document.getElementById("make-post").addEventListener("click", () => {
         showSection("form");
       });
@@ -310,85 +353,90 @@
         showSection("blog");
       });
 
-      // Ajax call
+      // --- AJAX Delete Post Handler ---
+      // Get userPosts data from server side rendered variable
       const userPosts = <%- JSON.stringify(userPosts) %>;
 
-userPosts.forEach(post => {
-  const deleteBtn = document.getElementById(`delete-btn-${post._id}`);
-  
-  if (deleteBtn) {
-    deleteBtn.addEventListener("click", async () => {
-      try {
-        const isConfirm =  window.confirm("Are you sure you want to delete this post?")
-        if(isConfirm){
-
-          const response = await fetch(`/app/posts/${post._id}`, {
-            method: "DELETE",
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
+      userPosts.forEach(post => {
+        const deleteBtn = document.getElementById(`delete-btn-${post._id}`);
+        
+        if (deleteBtn) {
+          deleteBtn.addEventListener("click", async () => {
+            try {
+              // Confirm delete action with user
+              const isConfirm = window.confirm("Are you sure you want to delete this post?");
+              if (isConfirm) {
+                // Send DELETE request to server
+                const response = await fetch(`/app/posts/${post._id}`, {
+                  method: "DELETE",
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  }
+                });
+                
+                if (response.ok) {
+                  console.log("Post deleted successfully!");
+                  // Remove the post element from DOM
+                  const postElement = document.getElementById(`post-${post._id}`);
+                  if (postElement) {
+                    postElement.remove(); 
+                  }
+                } else {
+                  console.log("Error deleting post");
+                }
+              } else {
+                console.log("User canceled the delete action");
+              }
+            } catch (error) {
+              console.error("Error with the fetch request:", error);
             }
           });
-  
-          if (response.ok) {
-            console.log("Post deleted successfully!");
-           
-            const postElement = document.getElementById(`post-${post._id}`);
-            if (postElement) {
-              postElement.remove(); 
-            }
-          } else {
-            console.log("Error deleting post");
-          }
-        }else{
-          console.log("User canceled the delete action")
         }
-      } catch (error) {
-        console.error("Error with the fetch request:", error);
-      }
-    });
-  }
-});
+      });
 
-
+      // --- AJAX Delete Comment Handler ---
       const comments = <%- JSON.stringify(comments) %>;
 
       comments.forEach(comment => {
-  const deleteBtn = document.getElementById(`delete-btn-${comment._id}`);
-  
-  if (deleteBtn) {
-    deleteBtn.addEventListener("click", async () => {
-      try {
-       const isConfirm =  window.confirm("Are you sure you want to delete this comment?")
-       if(isConfirm){
-
-         const response = await fetch(`/app/comments/${comment._id}`, {
-           method: "DELETE",
-           headers: {
-             'Content-Type': 'application/x-www-form-urlencoded'
-           }
-         });
- 
-         if (response.ok) {
-           console.log("comment deleted successfully!");
-           const postElement = document.getElementById(`comment-${comment._id}`);
-           if (postElement) {
-             postElement.remove(); 
-           }
-         } else {
-           console.log("Error deleting post");
-         }
-       }else{
-        console.log("User canceled the delete action")
-       }
-      } catch (error) {
-        console.error("Error with the fetch request:", error);
-      }
-    });
-  }
-});
+        const deleteBtn = document.getElementById(`delete-btn-${comment._id}`);
+        
+        if (deleteBtn) {
+          deleteBtn.addEventListener("click", async () => {
+            try {
+              const isConfirm = window.confirm("Are you sure you want to delete this comment?");
+              if (isConfirm) {
+                const response = await fetch(`/app/comments/${comment._id}`, {
+                  method: "DELETE",
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  }
+                });
+                
+                if (response.ok) {
+                  console.log("comment deleted successfully!");
+                  // Remove the comment element from DOM
+                  const postElement = document.getElementById(`comment-${comment._id}`);
+                  if (postElement) {
+                    postElement.remove(); 
+                  }
+                } else {
+                  console.log("Error deleting comment");
+                }
+              } else {
+                console.log("User canceled the delete action");
+              }
+            } catch (error) {
+              console.error("Error with the fetch request:", error);
+            }
+          });
+        }
+      });
     </script>
+
+    <!-- Include edit comment modal partial -->
     <%- include('layout/editComment.ejs') %>
 
+    <!-- Include common scripts -->
     <%- include('layout/script.ejs') %>
   </body>
 </html>

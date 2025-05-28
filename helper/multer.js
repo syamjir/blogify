@@ -2,6 +2,16 @@
 const multer = require("multer");
 const path = require("path");
 
+/**
+ * Multer uploader module for handling file uploads.
+ *
+ * Implements disk storage to save uploaded files locally in the "public/uploads" directory.
+ * Each file is saved with a unique name composed of the current timestamp and the original file name.
+ *
+ * Usage:
+ * - Call multerUploader() to get the multer upload middleware configured with this storage.
+ */
+
 class Multer {
   uploader() {
     const storage = multer.diskStorage({
@@ -20,7 +30,7 @@ class Multer {
 }
 
 function multerUploader() {
-  return new Multer().uploader(); 
+  return new Multer().uploader(); // ✅ call the method
 }
 
 module.exports = multerUploader;

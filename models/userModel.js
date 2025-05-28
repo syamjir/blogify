@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const bcrypt = require("bcrypt");
+
+//  Define User Schema
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -32,7 +34,10 @@ const userSchema = new Schema({
   },
 });
 
+// Ensures unique email validation with custom error message
 userSchema.plugin(uniqueValidator, { message: "Email must be unique" });
+
+// Middleware - Hash Password Before Saving
 userSchema.pre("save", async function (next) {
   try {
     const user = this;
