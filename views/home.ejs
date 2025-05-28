@@ -2,10 +2,10 @@
 <html lang="en">
   <%- include('layout/header.ejs') %>
   <body>
-    <!-- navigation -->
     <div class="home__container">
+      <!-- Navigation bar -->
       <%- include('layout/navigation.ejs') %>
-      <!-- hero section -->
+      <!-- Hero section displaying the latest post -->
       <div class="hero__image--container">
         <div class="image">
           <img
@@ -23,6 +23,7 @@
             <a href="#" class="btn--green">View post</a>
             <h2>This is a sample title</h2>
             <% } %>
+            <!-- Author info for the latest post -->
             <div class="user">
               <div class="user__image">
                 <img
@@ -41,7 +42,7 @@
         </div>
       </div>
 
-      <!-- Search post -->
+      <!-- Search bar for filtering posts by topic -->
       <form
         id="search-topic"
         action="/app"
@@ -65,12 +66,11 @@
         </button>
       </form>
 
-      <!-- Post card section -->
+      <!-- Section showing latest blog posts as cards -->
       <h2 class="post__heading">Latest Posts</h2>
 
       <div class="section__post-cards">
         <% if (updatedPosts) { %> <% updatedPosts.forEach(post => { %>
-
         <div class="cards">
           <div class="cards__image">
             <img src="<%= post.image %>" alt="Post-image" />
@@ -87,29 +87,25 @@
           </div>
         </div>
         <% }) %> <% } %> <% if (!updatedPosts.length) { %>
-
         <p class="no-post">No posts available to view 😕</p>
-
         <% } %>
       </div>
-      <!-- Pagination -->
+
+      <!-- Pagination controls -->
       <div class="section__pagination">
-        <!-- Previous Button -->
+        <!-- Previous page button -->
         <a
           href="/app?page=<%= Math.max(Number(page) - 1, 1) %>"
           class="section__pagination--previous"
           >&larr; Previous</a
         >
 
-        <!-- Page Numbers -->
+        <!-- Page number links with ellipses if needed -->
         <ul class="section__pagination--container">
-          <% const currentPage = Number(page); const startPage =
-          Math.max(1,currentPage - 2); const endPage = Math.min(lastPage,
-          currentPage + 2); const isStartLimited = startPage > 1; const
-          isEndLimited = endPage < lastPage %>
-
-          <!-- First page link if not shown -->
-          <% if (isStartLimited) { %>
+          <% const currentPage = Number(page); const startPage = Math.max(1,
+          currentPage - 2); const endPage = Math.min(lastPage, currentPage + 2);
+          const isStartLimited = startPage > 1; const isEndLimited = endPage <
+          lastPage; %> <% if (isStartLimited) { %>
           <li
             class="section__pagination--number <%= currentPage === 1 ? 'section__pagination--active' : '' %>"
           >
@@ -117,19 +113,13 @@
           </li>
           <% if (startPage > 2) { %>
           <li class="dots">...</li>
-          <% } %> <% } %>
-
-          <!-- Loop through the calculated range for the visible page numbers -->
-          <% for (let i = startPage; i <= endPage; i++) { %>
+          <% } %> <% } %> <% for (let i = startPage; i <= endPage; i++) { %>
           <li
             class="section__pagination--number <%= currentPage === i ? 'section__pagination--active' : '' %>"
           >
             <a href="/app?page=<%= i %>"><%= i %></a>
           </li>
-          <% } %>
-
-          <!-- Last page link if not shown -->
-          <% if (isEndLimited) { %> <% if (endPage < lastPage - 1) { %>
+          <% } %> <% if (isEndLimited) { %> <% if (endPage < lastPage - 1) { %>
           <li><p class="dots">...</p></li>
           <% } %>
           <li
@@ -140,7 +130,7 @@
           <% } %>
         </ul>
 
-        <!-- Next Button -->
+        <!-- Next page button -->
         <a
           href="/app?page=<%= Math.min(Number(page) + 1, lastPage) %>"
           class="section__pagination--next"
@@ -148,7 +138,7 @@
         >
       </div>
 
-      <!-- footer -->
+      <!-- Footer with about, quick links, contact form, and copyright -->
       <footer>
         <div class="about">
           <h3 class="about__title">About</h3>
@@ -175,6 +165,7 @@
             </p>
           </div>
         </div>
+
         <div class="quick__link">
           <h3 class="about__title">Quick Link</h3>
           <a href="/app">Home</a>
@@ -201,6 +192,7 @@
             ></textarea>
             <button type="submit" class="btn-main">Send</button>
           </form>
+
           <div class="copyright__wrapper">
             <div class="copyright">
               <a href="/app" class="logo">B</a>
@@ -216,8 +208,11 @@
         </div>
       </footer>
     </div>
+
     <%- include('layout/script.ejs') %>
+
     <script>
+      // Clear search input after form submit
       document.getElementById("search-topic").addEventListener("submit", () => {
         setTimeout(() => {
           document.getElementById("search-input").value = "";

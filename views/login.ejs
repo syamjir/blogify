@@ -3,6 +3,7 @@
   <%- include('layout/header.ejs') %>
   <body>
     <div class="main grid-col-2">
+      <!-- Left side: Welcome message with background gradient -->
       <div class="left u-primary-gradient">
         <div class="text__box">
           <h2 class="text__box--heading">Welcome to Our Blog</h2>
@@ -12,6 +13,8 @@
           </p>
         </div>
       </div>
+
+      <!-- Right side: Login form -->
       <form
         action="/app/auth/login"
         method="POST"
@@ -19,13 +22,18 @@
         class="right u-color-white-shine"
       >
         <div class="container">
+          <!-- Form heading and welcome back message -->
           <div class="input-text__box">
             <h2 class="input-text__box--heading u-text-medium">Hello Again!</h2>
             <p class="input-text__box--content">Welcome back</p>
           </div>
+
+          <!-- Display login error if any -->
           <% if (loginError) { %>
           <p class="error"><%= loginError %></p>
           <% } %>
+
+          <!-- Email input -->
           <div class="input__box">
             <ion-icon name="mail" class="input__box--icon"></ion-icon>
             <input
@@ -37,6 +45,8 @@
               class="input__box--email"
             />
           </div>
+
+          <!-- Password input -->
           <div class="input__box">
             <ion-icon name="lock-closed" class="input__box--icon"></ion-icon>
             <input
@@ -48,7 +58,11 @@
               class="input__box--email"
             />
           </div>
+
+          <!-- Submit button -->
           <button class="login__btn btn-main">Login</button>
+
+          <!-- Link to sign up page -->
           <p class="login__promt">
             Not a member?
             <a href="/app/auth/signup" class="forgot__password login__link"

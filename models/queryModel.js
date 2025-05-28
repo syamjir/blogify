@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+
+//  Define Query Schema
 const Schema = mongoose.Schema;
 
 const querySchema = new Schema({

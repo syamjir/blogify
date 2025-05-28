@@ -9,7 +9,8 @@
   max-width: 40rem;
   line-height: 1.6;
   position: relative;
-  animation: moveInRight 1s ease-out 0.5s backwards;
+  animation: moveInRight 1s ease-out 0.5s;
+  animation-fill-mode: backwards;
 
   &::before {
     content: "";
@@ -28,7 +29,6 @@
     font-weight: 700;
     color: $color-white-shine;
   }
-
   &--content {
     font-size: 1.6rem;
     color: $color-white;
@@ -49,36 +49,33 @@
   &--heading {
     font-weight: 700;
   }
-
   &--content {
     font-weight: 400;
     font-size: 1.6rem;
   }
 }
-
 .container {
   display: flex;
   flex-direction: column;
   justify-content: start;
   font-weight: 400;
   gap: 2rem;
-  animation: moveInTop 1s ease-out backwards;
-
+  animation: moveInTop 1s ease-out;
+  animation-fill-mode: backwards;
   .input__box {
     display: flex;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: $color-grey-lite;
     gap: 0.5rem;
     padding: 1.5rem;
     border: 1px solid $color-grey-lite;
     border-radius: 0.5rem;
-
     &--email,
     &--text,
     &--password {
       outline: none;
       border: none;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
 
       &:focus,
       &:active {
@@ -86,30 +83,25 @@
       }
     }
   }
-
-  .forgot__password {
-    font-size: 1.5rem;
+  .forgot__password:link,
+  .forgot__password:visited {
+    font-size: 1.6rem;
     color: $color-grey-lite;
     text-align: left;
+    text-decoration: none;
+    transition: all 1s;
+    margin-top: -1.5rem;
+    margin-bottom: -1.5rem;
     text-decoration: underline;
     text-decoration-color: $color-primary-dark;
-    transition: all 1s;
-    margin: -1.5rem 0;
-
-    &:link,
-    &:visited {
-      text-decoration: underline;
-    }
 
     &:hover {
       transform: translateY(-1px);
     }
-
     &:active {
       color: $color-primary;
     }
   }
-
   .login__btn {
     border-radius: 0.5rem;
   }
@@ -117,9 +109,9 @@
 
 @media (max-width: 500px) {
   .text__box {
+    // text-align: center;
     width: 26rem;
     line-height: 1.4;
-
     &::before {
       transform: scale(0) !important;
     }
@@ -135,7 +127,6 @@
 @media (max-width: 1020px) {
   .main {
     padding: 0;
-
     .right,
     .left {
       width: 100% !important;
@@ -147,12 +138,10 @@
       clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
       margin-bottom: -5dvh;
     }
-
     .right {
       margin-top: -5dvh;
     }
   }
-
   .container {
     margin-top: 4rem;
     gap: 1.4rem;

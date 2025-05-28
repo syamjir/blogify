@@ -10,7 +10,7 @@ const {
   deleteFromCloudinary,
 } = require("../helper/cloudinary");
 
-// to view post
+// View a single post along with its comments and user session info
 exports.getPost = async (req, res) => {
   try {
     const id = req.params.id;
@@ -49,10 +49,9 @@ exports.getPost = async (req, res) => {
   }
 };
 
-// to create post
+// Create a new post with image upload to Cloudinary
 exports.createPost = async (req, res) => {
   try {
-    
     const filePath = req.file.path;
     const fileName = req.file.filename;
     const imageUrl = await uploadToCloudinary(fileName, filePath);
@@ -71,7 +70,8 @@ exports.createPost = async (req, res) => {
     res.redirect(`/app/account/${req.session.userId}`);
   }
 };
-// delete post
+
+// Delete a post and its associated image from Cloudinary
 exports.deletePost = async (req, res) => {
   try {
     const id = req.params.id;
@@ -85,7 +85,7 @@ exports.deletePost = async (req, res) => {
   }
 };
 
-// edit post
+// Render the edit page for a specific post (with user authentication)
 exports.editPost = async (req, res) => {
   try {
     const id = req.params.id;
@@ -104,7 +104,7 @@ exports.editPost = async (req, res) => {
   }
 };
 
-// update post
+// Update a post with optional new image upload
 exports.updatePost = async (req, res) => {
   try {
     const id = req.params.id;
@@ -117,7 +117,6 @@ exports.updatePost = async (req, res) => {
       // Delete the file from local filesystem
       fs.unlinkSync(filePath);
       req.body.image = imageUrl;
-      
     }
     const updatedPost = await Post.findByIdAndUpdate(id, req.body);
     if (!updatedPost) {
@@ -136,6 +135,7 @@ exports.updatePost = async (req, res) => {
   }
 };
 
+// Add a like to a post, removing any existing dislike by the same user
 exports.addLike = async (req, res) => {
   try {
     const id = req.params.id;
@@ -165,6 +165,7 @@ exports.addLike = async (req, res) => {
   }
 };
 
+// Add a dislike to a post, removing any existing like by the same user
 exports.addDislike = async (req, res) => {
   try {
     const id = req.params.id;

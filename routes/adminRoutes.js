@@ -6,13 +6,14 @@ const {
 } = require("../controllers/adminController");
 
 const router = express.Router();
-// send message to admin
+
+// POST: Send a message to admin
 router.post("/send-message", sendMessageToAdmin);
 
-// view  query message
+// GET: View query messages in admin panel by ID
 router.get("/:id/admin-panel", getAdminPanel);
 
-// delete query message
+// DELETE: Delete a query message by ID
 router.delete("/:id", deleteQueryMessage);
 
 module.exports = router;

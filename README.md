@@ -1,23 +1,31 @@
-# BLOGIFY
+# Blogify 📝
 
-A simple blog application built with Node.js, Express, MongoDB, and EJS.
+A simple blogging platform where users can register, create posts, comment, and interact with content. Admins can manage user queries from the admin panel.
 
 ## Features
 
-- Create, read, update, and delete blog posts (CRUD)
-- User authentication (optional)
-- Responsive UI using Bootstrap/Tailwind
-- Stores blog data in MongoDB
+- User signup/login/logout
+- Create, edit, and delete blog posts
+- Upload images to Cloudinary
+- Comment system with update and delete functionality
+- Admin panel to view and delete queries
+- Profile photo update with image resizing using Sharp
+- Flash messages and error handling
+- Clean UI rendered using EJS templates
 
-## Technologies Used
+## Tech Stack
 
-- **Backend**: Node.js, Express.js, MongoDB, Mongoose  
-- **Frontend**: EJS, CSS (Tailwind/Bootstrap)  
-- **Other**: Dotenv, Express File Upload (for images), Bcrypt (for authentication)
+- Node.js + Express.js
+- MongoDB + Mongoose
+- EJS (templating engine)
+- Multer (file uploads)
+- Sharp (image processing)
+- Cloudinary (image hosting)
 
-## Installation
+## Setup Instructions
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/blogify.git
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/blogify.git
    cd blogify
+   ```

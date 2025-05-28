@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//  Define Post Schema
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({

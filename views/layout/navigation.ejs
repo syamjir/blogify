@@ -1,14 +1,25 @@
-<div class="section__navigation">
-  <a href="/app" class="logo">B</a>
+<div class="section__navigation" role="navigation" aria-label="Main Navigation">
+  <!-- Logo / Brand -->
+  <a href="/app" class="logo" aria-label="Blogify Home">B</a>
+
+  <!-- Navigation Links -->
   <ul class="nav__container">
     <li><a href="/app">Home</a></li>
     <li><a href="/app/about">About</a></li>
+
+    <!-- Admin Panel Link (visible only to admins) -->
     <% if (isAdmin) { %>
     <li><a href="/app/admin/<%= userId %>/admin-panel">Admin</a></li>
-    <% } %> <% if (isUserLogedIn) { %>
+    <% } %>
+
+    <!-- User Logged In -->
+    <% if (isUserLogedIn) { %>
     <li><a href="/app/account/<%= userId %>">Account</a></li>
     <li><a href="/app/auth/logout">Log Out</a></li>
-    <% } %> <% if (!isUserLogedIn) { %>
+    <% } %>
+
+    <!-- Guest User -->
+    <% if (!isUserLogedIn) { %>
     <li><a href="/app/auth/login">Login</a></li>
     <li><a href="/app/auth/signup">New User</a></li>
     <% } %>

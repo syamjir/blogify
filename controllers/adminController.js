@@ -1,6 +1,7 @@
 const Query = require("../models/queryModel");
 const timeAgo = require("../utils/timeAgo");
 
+// Create and send user message to admin
 exports.sendMessageToAdmin = async (req, res) => {
   try {
     const message = await Query.create({
@@ -14,7 +15,6 @@ exports.sendMessageToAdmin = async (req, res) => {
     res.redirect("/app");
   } catch (err) {
     console.log("Error creating message in the database:", err.message);
-
     req.flash(
       "sendMessageError",
       "Please write your message or log in to the app"
@@ -23,6 +23,7 @@ exports.sendMessageToAdmin = async (req, res) => {
   }
 };
 
+// Render admin panel with all user queries
 exports.getAdminPanel = async (req, res) => {
   try {
     if (!req.session.isAdmin) {
@@ -33,9 +34,12 @@ exports.getAdminPanel = async (req, res) => {
     if (!allQuery.length) {
       console.log("There is no query yet");
     }
+
+    // Add relative time formatting to each query
     const updatedQuery = allQuery.map((query) => {
       return { ...query.toObject(), time: timeAgo(query.createdAt) };
     });
+
     res.render("admin", { allQuery: updatedQuery, userId });
   } catch (err) {
     console.log("Error occured while opening admin panel");
@@ -43,7 +47,7 @@ exports.getAdminPanel = async (req, res) => {
   }
 };
 
-// delete query message
+// Delete a specific user query
 exports.deleteQueryMessage = async (req, res) => {
   try {
     const id = req.params.id;

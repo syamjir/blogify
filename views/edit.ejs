@@ -7,6 +7,7 @@
   />
   <body>
     <div class="home__container">
+      <!-- Navigation bar with user info and links -->
       <div class="section__navigation">
         <div class="user">
           <div class="user__image">
@@ -20,6 +21,7 @@
         </ul>
       </div>
 
+      <!-- Blog post edit form -->
       <div id="create-post-form " class="u-padding-main">
         <div class="input-text__box u-modifier-box">
           <h2 class="input-text__box--heading u-text-large">
@@ -37,6 +39,7 @@
           enctype="multipart/form-data"
           id="post-form"
         >
+          <!-- Title input -->
           <div class="input__box">
             <ion-icon name="pencil-outline" class="input__box--icon"></ion-icon>
             <input
@@ -49,21 +52,16 @@
             />
           </div>
 
+          <!-- Topic dropdown -->
           <div class="input__box">
-            <select
-              name="topic"
-              id="topic"
-              name="topic"
-              required
-              class="select"
-            >
+            <select name="topic" id="topic" required class="select">
               <option value="" disabled selected>Select a topic</option>
               <% if (postData.topic) { %>
-
               <option selected value="<%= postData.topic %>">
                 <%= postData.topic %>
               </option>
               <% } %>
+              <!-- List of topics -->
               <option value="Tech">Tech</option>
               <option value="Sports">Sports</option>
               <option value="Health">Health</option>
@@ -79,6 +77,7 @@
             </select>
           </div>
 
+          <!-- File upload for image -->
           <div class="file__upload-box">
             <label for="file-upload" class="label__file-upload">
               <ion-icon name="link-outline" class="file_upload-icon"></ion-icon>
@@ -92,6 +91,8 @@
               class="select__file"
             />
           </div>
+
+          <!-- Rich text editor and hidden textarea to submit content -->
           <div>
             <div id="editor"><%- postData.content %></div>
             <textarea name="content" id="hiddenTextarea"></textarea>
@@ -101,11 +102,15 @@
         </form>
       </div>
     </div>
+
+    <!-- Quill.js editor script -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script>
       const quill = new Quill("#editor", {
         theme: "snow",
       });
+
+      // On form submit, copy Quill editor content to hidden textarea
       document
         .getElementById("post-form")
         .addEventListener("submit", function (e) {
@@ -115,6 +120,7 @@
           this.submit();
         });
     </script>
+
     <%- include('layout/script.ejs') %>
   </body>
 </html>

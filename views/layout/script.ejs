@@ -6,19 +6,30 @@
   nomodule
   src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
 ></script>
+
+<!-- ========================
+     Responsive Navigation Script
+========================= -->
 <script>
   const windowWidth = window.innerWidth;
   const nav = document.querySelector(".nav__container");
   const container = document.querySelector(".section__navigation");
 
+  // Enable mobile navigation if screen width is 820px or less
   if (windowWidth <= 820) {
+    // Add mobile-specific classes
     nav.classList.add("mobile__container");
     nav.classList.add("u-display");
+
+    // Inject menu icon into navigation container
     container.insertAdjacentHTML(
       "beforeend",
       '<ion-icon class="icon__menu" name="menu"></ion-icon>'
     );
+
     const menuIcon = document.querySelector(".icon__menu");
+
+    // Toggle nav visibility when menu icon is clicked
     menuIcon.addEventListener("click", () => {
       if (!nav.classList.contains("u-display")) {
         nav.classList.add("u-display");
@@ -26,6 +37,8 @@
         nav.classList.remove("u-display");
       }
     });
+
+    // Hide nav when clicking outside of menu icon
     document.addEventListener("click", function (e) {
       if (!menuIcon.contains(e.target)) {
         nav.classList.add("u-display");

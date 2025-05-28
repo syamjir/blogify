@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('layout/header.ejs') %>
+  <!-- Head section (meta, stylesheets, etc.) -->
   <body>
     <div class="main grid-col-2">
+      <!-- Left side: Signup form -->
       <div class="left u-color-white-shine u-padding-bottom">
         <form
           class="container"
@@ -10,16 +12,19 @@
           method="POST"
           enctype="x-www-form-urlencoded"
         >
+          <!-- Form heading and intro -->
           <div class="input-text__box">
             <h2 class="input-text__box--heading u-text-medium">
               Join Our Community!
             </h2>
             <p class="input-text__box--content">start your journey with us.</p>
           </div>
-          <% if (validationErrors.name) { %>
 
+          <!-- Validation error for name -->
+          <% if (validationErrors.name) { %>
           <p class="error"><%= validationErrors.name %></p>
           <% } %>
+          <!-- Name input -->
           <div class="input__box">
             <ion-icon name="person" class="input__box--icon"></ion-icon>
             <input
@@ -28,13 +33,20 @@
               id="name"
               name="name"
               value="<%= tempUserData?.name %>"
-              class="input__box--text"
+              <!--
+              Preserve
+              entered
+              value
+              --
             />
+            class="input__box--text" />
           </div>
-          <% if (validationErrors.email) { %>
 
+          <!-- Validation error for email -->
+          <% if (validationErrors.email) { %>
           <p class="error"><%= validationErrors.email %></p>
           <% } %>
+          <!-- Email input -->
           <div class="input__box">
             <ion-icon name="mail" class="input__box--icon"></ion-icon>
             <input
@@ -42,14 +54,20 @@
               id="email"
               name="email"
               value="<%= tempUserData?.email %>"
-              placeholder="Email address"
-              class="input__box--email"
+              <!--
+              Preserve
+              entered
+              value
+              --
             />
+            placeholder="Email address" class="input__box--email" />
           </div>
-          <% if (validationErrors.password) { %>
 
+          <!-- Validation error for password -->
+          <% if (validationErrors.password) { %>
           <p class="error"><%= validationErrors.password %></p>
           <% } %>
+          <!-- Password input -->
           <div class="input__box">
             <ion-icon name="lock-closed" class="input__box--icon"></ion-icon>
             <input
@@ -57,20 +75,32 @@
               id="password"
               name="password"
               value="<%= tempUserData?.password %>"
-              placeholder="Password"
-              class="input__box--password"
+              <!--
+              Usually
+              not
+              recommended
+              to
+              preserve
+              passwords
+              --
             />
+            placeholder="Password" class="input__box--password" />
           </div>
 
+          <!-- Submit button -->
           <button class="login__btn btn-main">Signup</button>
+
+          <!-- Link to login page -->
           <p class="login__promt">
             Already have an account?
-            <a href="/app/auth/login" class="forgot__password login__link"
-              >Sign In</a
-            >
+            <a href="/app/auth/login" class="forgot__password login__link">
+              Sign In
+            </a>
           </p>
         </form>
       </div>
+
+      <!-- Right side: Promotional content -->
       <div class="right u-primary-gradient u-box-width-medium">
         <div class="text__box text__box--modifier">
           <h2 class="text__box--heading">Connect Through Words</h2>
@@ -81,6 +111,8 @@
         </div>
       </div>
     </div>
+
     <%- include('layout/script.ejs') %>
+    <!-- Scripts -->
   </body>
 </html>

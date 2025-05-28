@@ -1,0 +1,71 @@
+.section-about {
+  padding: 2rem 16rem 10rem 16rem;
+  position: relative;
+  & p {
+    font-size: 2rem;
+    line-height: 1.5;
+  }
+  & .summary {
+    margin-bottom: 2rem;
+  }
+  & .app-feature,
+  & .hilight {
+    & h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    & ul {
+      list-style: none;
+      & li {
+        display: flex;
+        gap: 1rem;
+        align-items: top;
+        font-size: 1.8rem;
+        margin-bottom: 2.5rem;
+      }
+    }
+  }
+  & .thanks-user {
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  & .line {
+    border-top: 1px solid $color-grey;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.u-text-extra-large {
+  font-size: 3.6rem !important;
+}
+
+.contact-developer {
+  color: $color-primary-dark;
+  padding: 0.2rem 0.4rem;
+  background-color: $color-white-shine;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 2rem;
+  right: 20%;
+  & .github_icon {
+    font-size: 3.6rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .section-about {
+    padding: 2rem 6rem 10rem 6rem;
+  }
+  .contact-developer {
+    right: 6%;
+  }
+}
+@media (max-width: 520px) {
+  .section-about {
+    padding: 2rem 2rem 10rem 2rem;
+  }
+  .contact-developer {
+    right: 4%;
+  }
+}

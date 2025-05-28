@@ -1,9 +1,36 @@
 .btn:link,
-.btn:visited,
-.btn-main,
-.btn--green,
-.btn--card {
+.btn:visited {
   @include btnStyle;
+  &:hover {
+    background-color: $color-primary-light;
+  }
+}
+.btn-main {
+  @include btnStyle;
+  width: 100%;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-primary-light;
+  }
+}
+.btn--green {
+  padding: 0.8rem 1.2rem;
+  color: $color-primary-dark;
+  background-color: $color-white;
+  font-size: 1.6rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    background-color: $color-white-shine;
+  }
+  &:active {
+    color: $color-primary;
+  }
+}
+.btn--card {
+  padding: 0.6rem 1.2rem;
   color: $color-primary-dark;
   background-color: $color-white;
   font-size: 1.6rem;
@@ -13,37 +40,49 @@
 
   &:hover {
     background-color: $color-primary-light;
-  }
-
-  &:active {
-    color: $color-primary;
-  }
-}
-
-// Additional styling for .btn--green
-.btn--green {
-  padding: 0.8rem 1.2rem;
-
-  &:hover {
-    background-color: $color-white-shine;
-  }
-}
-
-// Additional styling for .btn--card
-.btn--card {
-  padding: 0.6rem 1.2rem;
-
-  &:hover {
     color: $color-white;
   }
-
   &:active {
+    color: $color-primary;
     background-color: $color-white;
   }
 }
+.btn-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
 
-// Styling for .btn-main
-.btn-main {
-  width: 100%;
-  cursor: pointer;
+.edit_btn,
+.delete_btn {
+  text-decoration: none;
+  font-size: 1.6rem;
+  padding: 0.7rem 1.6rem;
+  cursor: pointer !important;
+
+  border: none;
+  border-radius: 0.5rem;
+  color: $color-white;
+  transition: 0.3s ease-out;
+}
+.edit_btn {
+  background-color: $color-primary;
+  &:hover {
+    background-color: $color-primary-light;
+  }
+}
+.delete_btn {
+  background-color: $color-red-delete;
+  &:hover {
+    background-color: $color-red-error;
+  }
+}
+.btn--view {
+  display: inline-block;
+  background-color: $color-white-dark;
+}
+.btn-search {
+  border: none;
+  background-color: transparent;
 }

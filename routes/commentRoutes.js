@@ -7,13 +7,13 @@ const {
 
 const router = express.Router();
 
-// add comment
+// POST: Add a new comment to a post
 router.post("/:postId", addComment);
 
-// delete comment
+// DELETE: Delete a comment by ID
 router.delete("/:id", deleteComment);
 
-// update comment
+// PUT: Update a comment by ID
 router.put("/:id", updateComment);
 
 module.exports = router;

@@ -1,12 +1,10 @@
 .u-text-medium {
   font-size: 2.6rem;
 }
-
 .u-text-large {
   font-size: 3rem;
   line-height: 1.2;
 }
-
 .u-primary-gradient {
   background: linear-gradient(
     to right bottom,
@@ -14,75 +12,93 @@
     rgba($color-primary-light, 1)
   );
 }
-
 .u-color-white-shine {
   background-color: $color-white-shine;
 }
-
 .u-box-width-medium {
   width: 80%;
 }
-
 .u-color-white {
   color: $color-white;
 }
-
 .u-padding {
   padding: 2rem;
 }
-
 .u-display {
   opacity: 0;
 }
-
 .u-modifier--container {
   position: static !important;
   margin: 4rem 0 0 10rem !important;
 }
-
+.u-modifier--position {
+  position: static !important;
+}
 .u-color-grey {
   color: $color-grey !important;
 }
-
 .u-color-grey-lite {
   color: $color-grey-lite !important;
 }
-
 .u-margin-main {
-  margin: 2rem 10rem;
-
-  @media (max-width: 750px) {
-    margin: 2rem 2rem;
-  }
+  margin: 2rem 10rem !important;
 }
-
+.u-padding-main {
+  padding: 2rem 16rem !important;
+  min-height: 100dvh;
+}
+.u-padding-none {
+  padding: 0 !important;
+}
 .u-modifier--comment {
-  margin: 0 !important;
-
-  @media (max-width: 750px) {
-    margin: 0 !important;
+  margin: 0rem;
+  animation-fill-mode: backwards;
+}
+.u-animation {
+  animation: moveInTop 1s ease-out !important;
+}
+.u-modifier-box {
+  & input {
+    font-size: 2rem !important;
+    background-color: transparent !important;
   }
 }
-
+.u-border-radius {
+  border-radius: 0.5rem;
+}
+.u-position-form {
+  margin: 0 10rem;
+}
+.comments-list .u-position-form {
+  margin: 0 !important;
+}
 @media (max-width: 750px) {
+  .u-margin-main {
+    margin: 2rem 2rem !important;
+  }
   .u-modifier--container {
     margin: 6rem 0 0 2rem !important;
   }
-
+  .u-modifier--comment {
+    margin: 0rem !important;
+  }
   .u-modifier-user {
     flex-direction: column !important;
     align-items: start !important;
   }
+  .u-padding-main {
+    padding: 2rem !important;
+  }
+  .u-position-form {
+    margin: 0 2rem;
+  }
 }
-
 #editor {
   font-size: 1.8rem;
 }
-
 #title {
   width: 100%;
 }
-
 .u-update-background {
   background-color: $color-primary;
 }

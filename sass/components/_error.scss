@@ -1,11 +1,15 @@
 .error {
   color: $color-red-error;
   font-size: 1.4rem;
-  margin: -1.1rem 0 -2rem;
+  margin-top: -1.1rem;
+  margin-bottom: -2rem;
   animation: moveInDown 0.5s ease-out 0.9s;
   animation-fill-mode: backwards;
+}
 
-  @media (max-width: 500px) {
+@media (max-width: 500px) {
+  .error {
+    margin-top: -1.1rem !important;
     margin-bottom: -1.7rem !important;
   }
 }

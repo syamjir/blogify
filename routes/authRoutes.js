@@ -9,19 +9,20 @@ const {
 console.log(login, signup);
 
 const router = express.Router();
-//render login page
+
+// GET: Render login page
 router.get("/login", login);
 
-// user login
+// POST: Handle user login
 router.post("/login", userLogin);
 
-//render signup page
+// GET: Render signup page
 router.get("/signup", signup);
 
-// user signup
+// POST: Handle user signup
 router.post("/signup", userSignup);
 
-// user logouut
+// GET: Handle user logout
 router.get("/logout", userLogout);
 
 module.exports = router;
