@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test1": "echo \"Error: no test specified\" && exit 1",
     "compile:sass": "node-sass --watch sass/main.scss public/css/style.css ",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +31,8 @@
     "sharp": "^0.33.5"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^9.1.1",
     "nodemon": "^3.1.7"
   }
 }
