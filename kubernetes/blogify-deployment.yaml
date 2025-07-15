@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blogify-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blogify
+  template:
+    metadata:
+      labels:
+        app: blogify
+    spec:
+      containers:
+        - name: blogify
+          image: syamjir/blogify-july
+          env:
+            - name: MONGODB_USERNAME
+              value: xxxxxx
+            - name: MONGODB_PASSWORD
+              value: xxxxxx
+            - name: MONGODB_URL
+              value: xxxxxx
+            - name: NODE_PORT
+              value: xxxxxx
+            - name: SESSION_SECRET
+              value: xxxxxx
+            - name: MONGO_URI
+              value: xxxxxx
+            - name: DATABASE_URL
+              value: xxxxxx
+            - name: CLOUDINARY_CLOUD_NAME
+              value: xxxxxx
+            - name: CLOUDINARY_API_KEY
+              value: xxxxxx
+            - name: CLOUDINARY_API_SECRET
+              value: xxxxxx
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: xxxxxx
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: xxxxxx
