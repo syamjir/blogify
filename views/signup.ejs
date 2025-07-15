@@ -33,13 +33,8 @@
               id="name"
               name="name"
               value="<%= tempUserData?.name %>"
-              <!--
-              Preserve
-              entered
-              value
-              --
+              class="input__box--text"
             />
-            class="input__box--text" />
           </div>
 
           <!-- Validation error for email -->
@@ -54,13 +49,9 @@
               id="email"
               name="email"
               value="<%= tempUserData?.email %>"
-              <!--
-              Preserve
-              entered
-              value
-              --
+              placeholder="Email address"
+              class="input__box--email"
             />
-            placeholder="Email address" class="input__box--email" />
           </div>
 
           <!-- Validation error for password -->
@@ -75,16 +66,9 @@
               id="password"
               name="password"
               value="<%= tempUserData?.password %>"
-              <!--
-              Usually
-              not
-              recommended
-              to
-              preserve
-              passwords
-              --
+              placeholder="Password"
+              class="input__box--password"
             />
-            placeholder="Password" class="input__box--password" />
           </div>
 
           <!-- Submit button -->
