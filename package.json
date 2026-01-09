@@ -6,7 +6,9 @@
     "test1": "echo \"Error: no test specified\" && exit 1",
     "compile:sass": "node-sass --watch sass/main.scss public/css/style.css ",
     "start": "node server.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "build": "node-sass sass/main.scss public/css/style.css"
+
   },
   "author": "",
   "license": "ISC",
