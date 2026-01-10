@@ -23,12 +23,20 @@ jobs:
   build-docker-image:
     needs: test
     runs-on: ubuntu-22.04
+
+    outputs:
+      docker-image-build-status: ${{ steps.status.outputs.result }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Build Docker image
         run: docker build -t blogify-app:latest .
+
+      - name: Set build status
+        id: status
+        run: echo "result=success" >> $GITHUB_OUTPUT
 
       - name: Save Docker image as artifact
         run: docker save blogify-app:latest -o blogify-app.tar
@@ -42,6 +50,7 @@ jobs:
   deploy:
     needs: build-docker-image
     runs-on: ubuntu-22.04
+
     steps:
       - name: Download Docker image artifact
         uses: actions/download-artifact@v4
